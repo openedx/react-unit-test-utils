@@ -5,7 +5,7 @@ export {
   shallow,
 } from './testUtils';
 export {
-  StrictDict,
   keyStore,
+  StrictDict,
   stateFactory,
 } from './utils';
