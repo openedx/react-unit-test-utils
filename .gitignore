@@ -1,0 +1,26 @@
+.DS_Store
+.eslintcache
+node_modules
+npm-debug.log
+coverage
+
+dist/
+
+### pyenv ###
+.python-version
+
+### Emacs ###
+*~
+*.swo
+*.swp
+
+### Development environments ###
+.idea
+.vscode
+
+# Local package dependencies
+module.config.js
+
+### transifex ###
+src/i18n/transifex_input.json
+temp

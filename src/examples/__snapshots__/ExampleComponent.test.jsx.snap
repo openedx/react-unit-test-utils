@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExampleComponent component render snapshot 1`] = `
+<Fragment>
+  <Form
+    method="post"
+  >
+    <Form.Group
+      controlId="csv"
+    >
+      <Form.Control
+        data-testid="file-control"
+        label="A File Control"
+        onChange={[MockFunction hooks.handleFileInputChange]}
+        type="file"
+      />
+    </Form.Group>
+  </Form>
+  <ImportedComponent
+    className="imported-component"
+    label={
+      Object {
+        "defaultMessage": "I am imported",
+        "description": "File Control Label",
+        "id": "examples.importedComponentLabel",
+      }
+    }
+  />
+  <div>
+    <h1>
+      I am a heading
+    </h1>
+    <span>
+      I am a span
+    </span>
+  </div>
+</Fragment>
+`;

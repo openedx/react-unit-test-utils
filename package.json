@@ -1,0 +1,54 @@
+{
+  "name": "@edx/react-unit-test-utils",
+  "version": "1.0.0-semantically-released",
+  "description": "React toolkit for writing and testing react components",
+  "main": "index.js",
+  "release": {
+    "branches": ["main"]
+  },
+  "scripts": {
+    "build": "make build",
+    "lint": "fedx-scripts eslint --ext .jsx,.js src/",
+    "lint-fix": "fedx-scripts eslint --fix --ext .jsx,.js src/",
+    "test": "TZ=GMT fedx-scripts jest --coverage --passWithNoTests"
+  },
+  "author": "muselesscreator",
+  "license": "AGPL-3.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "browserslist": [
+    "extends @edx/browserslist-config"
+  ],
+  "dependencies": {
+    "@edx/browserslist-config": "^1.1.1",
+    "@edx/frontend-platform": "^4.2.0",
+    "@edx/paragon": "^19.25.4",
+    "@reduxjs/toolkit": "^1.5.1",
+    "@testing-library/dom": "^9.3.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/react-hooks": "^8.0.1",
+    "classnames": "^2.2.6",
+    "core-js": "3.6.5",
+    "lodash": "^4.17.21",
+    "react-dev-utils": "^12.0.1",
+    "react-test-renderer": "^16.14.0"
+  },
+  "devDependencies": {
+    "@edx/browserslist-config": "^1.1.1",
+    "@edx/frontend-build": "12.8.38",
+    "axios": "^1.4.0",
+    "es-check": "^2.3.0",
+    "husky": "2.7.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.6.3",
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
+    "semantic-release": "^19.0.3"
+  },
+  "peerDependencies": {
+    "@edx/frontend-build": ">=8.1.0",
+    "react": "^16.9.0 || 17.0.0"
+  }
+}
