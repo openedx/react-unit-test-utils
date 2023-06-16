@@ -53,6 +53,6 @@
   },
   "peerDependencies": {
     "@edx/frontend-build": ">=8.1.0",
-    "react": "^16.9.0 || 17.0.0"
+    "react": "^16.9.0 || ^17.0.0"
   }
 }
