@@ -1,5 +1,6 @@
 export {
   formatMessage,
+  getEffect,
   mockComponents,
   mockUseState,
   shallow,
