@@ -30,6 +30,7 @@ class ReactShallowRenderer {
     } catch (error) {
       console.log({ error, Component });
       out = ReactShallowRenderer.flatRender(Component);
+      console.log({ out });
     }
     return out;
   }

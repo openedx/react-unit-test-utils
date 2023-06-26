@@ -39,17 +39,14 @@ describe('ExampleComponent component', () => {
       beforeEach(() => {
         inst = el.instance;
       });
-      /*
       test('Form', () => {
         const control = inst.findByType(Form)[0];
         expect(control.props.action).toEqual(hookProps.formAction);
       });
-      */
       test('FileControl', () => {
         const control = inst.findByTestId(testIds.fileControl)[0];
         expect(control.props.onChange).toEqual(hookProps.handleFileInputChange);
       });
-      /*
       test('imported component', () => {
         const control = inst.findByType(ImportedComponent)[0];
         expect(control.props.onClick).toEqual(hookProps.handleClickImportedComponent);
@@ -63,7 +60,6 @@ describe('ExampleComponent component', () => {
           </div>,
         ))).toEqual(true);
       });
-      */
     });
   });
 });

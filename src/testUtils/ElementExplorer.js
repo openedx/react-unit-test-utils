@@ -58,7 +58,8 @@ class ElementExplorer {
   }
 
   matches(el) {
-    return isEqual(el.data, this.data);
+    const toCheck = el.data ? el.data : el;
+    return isEqual(toCheck, this.data);
   }
 
   get snapshot() {
