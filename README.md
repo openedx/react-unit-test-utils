@@ -56,38 +56,27 @@ jest.mock('@edx/paragon', () => jest.requireActual('@edx/react-unit-test-utils')
 
 // Provides mocks for <Button>, <Icon>, <Form>, <Form.Group>, and <Form.Control> with appropriate mocks to appear legibly in the snapshot.
 ```
-### `stateFactory`and `mockUseState` - React state hook factory and testing utility
+### `useKeyedState` and `mockUseKeyedState` - React state hook wrapper and testing utility
 This is a pair of methods to test react useState hooks, which are otherwise somewhat problematic to test directly.
 #### Usage
-Define a state factory in your hooks module.
-__Note__ the name of the `state` object is important here for the mocking utility.
+Define a keystore (for checking against) of state keys;
 ```js
-import { stateFactory } from '@edx/react-unit-test-utils';
-const state = stateFactory([
-  'field1',
-  'field2',
-  'field3',
-]);  // returns an object of state hooks of the form: `state.field1 = (val) => React.useState(val)`
-```
-When using the state hooks, use the *exported* version of the object so that it can be appropriately mocked for testing
-```js
-import { stateFactory } from '@edx/react-unit-test-utils';
-import * as module from './hooks';
-const state = stateFactory(['field1', 'field2', 'field3']);
+import { useKeyedState, StrictDict } from '@edx/react-unit-test-utils';
+const state = StrictDict({
+  field1: 'field1',
+  field2: 'field2',
+  field3: 'field3',
+]);
+// when initializing, use a state key as the first argument to make the calls uniquely identifiable.
 const useMyComponentData = () => {
-  const [field1, setField1] = state.field1(initialValue);
+  const [field1, setField1] = useKeyedState(stateKeys.field1, initialValue);
 };
 ```
 When testing, initialize mock state utility outside of your tests
 ```js
-import { mockUseState } from '@edx/react-unit-test-utils';
+import { mockUseKeyedState } from '@edx/react-unit-test-utils';
 import * as hooks from './hooks';
-const state = mockUseState(hooks);
-```
-Verify the state keys
-```js
-// state.keys is a StrictDict, which will complain if called with an invalid key.
-state.testStateFactory([ state.keys.field1, state.keys.field2, state.keys.field3 ]);
+const state = mockUseState(hooks.stateKeys);
 ```
 For hooks that use these state hooks, first mock the state object for that test, and then test initialization arguments.
 ```js
