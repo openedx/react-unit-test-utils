@@ -1,11 +1,11 @@
 import React from 'react';
 import * as axios from 'axios';
-import { getEffect, mockUseState } from 'testUtils';
+import { getEffect, mockUseKeyedState } from 'testUtils';
 
 import * as hooks from './hooks';
 
 const { useExampleComponentData } = hooks;
-const state = mockUseState(hooks);
+const state = mockUseKeyedState(hooks.stateKeys);
 
 jest.mock('axios', () => ({ post: jest.fn() }));
 
@@ -29,17 +29,6 @@ describe('ExampleComponent hooks', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     React.useRef.mockReturnValue(ref);
-  });
-  /**
-   * Test instantiation of the state factory with appropriate keys.
-   */
-  describe('state hooks', () => {
-    state.testStateFactory([
-      state.keys.fileInputChanged,
-      state.keys.importedClicked,
-      state.keys.loaded,
-      state.keys.numEvents,
-    ]);
   });
   describe('useExampleComponentData hook', () => {
     beforeEach(() => {

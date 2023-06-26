@@ -2,11 +2,11 @@ export {
   formatMessage,
   getEffect,
   mockComponents,
-  mockUseState,
+  mockUseKeyedState,
   shallow,
 } from './testUtils';
 export {
   keyStore,
   StrictDict,
-  stateFactory,
+  useKeyedState,
 } from './utils';

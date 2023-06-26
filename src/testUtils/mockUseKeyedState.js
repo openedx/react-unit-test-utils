@@ -1,5 +1,4 @@
-import React from 'react';
-import { keyStore } from '../utils';
+import * as utils from '../utils';
 
 /**
  * Mock utility for working with useState in a hooks module.
@@ -15,16 +14,16 @@ import { keyStore } from '../utils';
  * Example usage:
  *   // hooks.js
  *   import * as module from './hooks';
- *   import { stateFactory } from '@edx/react-unit-test-utils';
+ *   import { useKeyedState, StrictDict } from '@edx/react-unit-test-utils';
  *
- *   const state = stateFactory([
- *     'isOpen',
- *     'hasDoors',
- *     'selected',
- *   };
+ *   const stateKeys = StrictDict({
+ *     isOpen: 'isOpen',
+ *     hasDoors: 'hasDoors',
+ *     selected: 'selected',
+ *   });
  *   ...
  *   export const exampleHook = () => {
- *     const [isOpen, setIsOpen] = module.state.isOpen(false);
+ *     const [isOpen, setIsOpen] = useKeyedState(stateKeys.isOpen, false);
  *     const handleClickOpen = () => {
  *       setIsOpen(true);
  *     };
@@ -35,16 +34,9 @@ import { keyStore } from '../utils';
  *
  *   // hooks.test.js
  *   import * as hooks from './hooks';
- *   import { mockUseState } from '@edx/react-unit-test-utils';
- *   const state = mockUseState(hooks)
+ *   import { mockUseKeyedState } from '@edx/react-unit-test-utils';
+ *   const state = mockUseKeyedState(hooks.stateKeys)
  *   ...
- *   describe('state hooks', () => {
- *      state.testStateFactory([
- *        state.keys.isOpen,
- *        state.keys.hasDoors,
- *        state.keys.selected,
- *      ]);
- *   });
  *   describe('exampleHook', () => {
  *     let out;
  *     beforeEach(() => {
@@ -80,89 +72,77 @@ import { keyStore } from '../utils';
  *
  * @param {obj} hooks - hooks module containing a 'state' object
  */
-export class MockUseState {
-  constructor(hooks) {
-    this.hooks = hooks;
-    this.oldState = null;
-    this.setState = {};
+export class MockUseKeyedState {
+  constructor(stateKeys) {
+    this.keys = stateKeys;
+    this.hookSpy = jest.spyOn(utils, 'useKeyedState');
     this.values = {};
+    this.initValues = {};
+    this.setState = {};
 
     this.mock = this.mock.bind(this);
     this.restore = this.restore.bind(this);
     this.mockVal = this.mockVal.bind(this);
+    this.setup = this.setup.bind(this);
+    this.mockHook = this.mockHook.bind(this);
+    this.setup();
   }
 
-  /**
-   * @return {object} - keyStore of state object keys
-   */
-  get keys() {
-    return keyStore(this.hooks.state);
+  setup() {
+    this.values = {};
+    this.initValues = {};
+    this.setState = {};
+    Object.keys(this.keys).forEach((key) => {
+      this.values[key] = null;
+      this.setState[key] = jest.fn((val) => {
+        this.values[key] = val;
+      });
+    });
+  }
+
+  mockHook(key, val) {
+    this.initValues[key] = val;
+    return [this.values[key], this.setState[key]];
   }
 
   /**
    * Replace the hook module's state object with a mocked version, initialized to default values.
    */
   mock() {
-    this.oldState = this.hooks.state;
-    Object.keys(this.keys).forEach(key => {
-      this.hooks.state[key] = jest.fn(val => {
-        this.values[key] = val;
-        return [val, this.setState[key]];
-      });
-    });
-    this.setState = Object.keys(this.keys).reduce(
-      (obj, key) => ({
-        ...obj,
-        [key]: jest.fn(val => {
-          this.hooks.state[key] = val;
-        }),
-      }),
-      {},
-    );
+    this.hookSpy.mockImplementation(this.mockHook);
   }
 
   /**
    * Mock the state getter associated with a single key to return a specific value one time.
    *
-   * @param {string} key - state key (from this.keys)
+   * @param {string} mockKey - state key (from this.keys)
    * @param {any} val - new value to be returned by the useState call.
    */
-  mockVal(key, val) {
-    this.hooks.state[key].mockReturnValueOnce([val, this.setState[key]]);
+  mockVal(mockKey, val) {
+    this.hookSpy.mockImplementationOnce((key) => {
+      if (key === mockKey) {
+        return [val, this.setState[key]];
+      }
+      return this.mockHook(key);
+    });
   }
 
   /**
    * Restore the hook module's state object to the actual code.
    */
   restore() {
-    this.hooks.state = this.oldState;
+    this.hookSpy.mockRestore();
   }
 
   expectInitializedWith(key, value) {
-    expect(this.hooks.state[key]).toHaveBeenCalledWith(value);
+    expect(this.initValues[key]).toEqual(value);
   }
 
   expectSetStateCalledWith(key, value) {
     expect(this.setState[key]).toHaveBeenCalledWith(value);
   }
-
-  /**
-   * Verify that the configured state factory contains the provided fields, irrespective of order.
-   * @param {string[]} fields - list of state fields to validate
-   */
-  testStateFactory(fields) {
-    fields.forEach(field => {
-      const testValue = 'some value';
-      const useState = (val) => ({ useState: val });
-
-      test(`${field} state getter should return stateFactory output`, () => {
-        jest.spyOn(React, 'useState').mockImplementationOnce(useState);
-        expect(this.hooks.state[field](testValue)).toEqual(useState(testValue));
-      });
-    });
-  }
 }
 
-export const mockUseState = (hooks) => new MockUseState(hooks);
+export const mockUseKeyedState = (stateKeys) => new MockUseKeyedState(stateKeys);
 
-export default mockUseState;
+export default mockUseKeyedState;
