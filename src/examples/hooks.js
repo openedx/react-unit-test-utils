@@ -2,24 +2,22 @@
 import { useEffect, useRef } from 'react';
 import { post } from 'axios';
 
-import { stateFactory } from 'utils';
+import { StrictDict, useKeyedState } from 'utils';
 
-import * as module from './hooks';
-
-export const state = stateFactory([
-  'importedClicked',
-  'fileInputChanged',
-  'loaded',
-  'numEvents',
-]);
+export const stateKeys = StrictDict({
+  importedClicked: 'importedClicked',
+  fileInputChanged: 'fileInputChanged',
+  loaded: 'loaded',
+  numEvents: 'numEvents',
+});
 
 export const formUrl = 'localhost:18000/form-url';
 
 export const useExampleComponentData = () => {
-  const [importClicked, setImportClicked] = module.state.importedClicked(0);
-  const [fileChanged, setFileChanged] = module.state.fileInputChanged(null);
-  const [, setLoaded] = module.state.loaded(false);
-  const [, setNumEvents] = module.state.numEvents(0);
+  const [importClicked, setImportClicked] = useKeyedState(stateKeys.importedClicked, 0);
+  const [fileChanged, setFileChanged] = useKeyedState(stateKeys.fileInputChanged, null);
+  const [, setLoaded] = useKeyedState(stateKeys.loaded, false);
+  const [, setNumEvents] = useKeyedState(stateKeys.numEvents, 0);
   const fileInputRef = useRef();
 
   useEffect(() => {
