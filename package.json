@@ -3,9 +3,6 @@
   "version": "1.0.0-semantically-released",
   "description": "React toolkit for writing and testing react components",
   "main": "index.js",
-  "publishConfig": {
-    "access": "public"
-  },
   "release": {
     "branches": ["main"]
   },
