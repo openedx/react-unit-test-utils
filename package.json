@@ -4,7 +4,7 @@
   "description": "React toolkit for writing and testing react components",
   "main": "dist/index.js",
   "release": {
-    "branches": ["main"]
+    "branches": ["main", "next"]
   },
   "files": [
     "/dist"
