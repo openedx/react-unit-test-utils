@@ -2,7 +2,7 @@
   "name": "@edx/react-unit-test-utils",
   "version": "1.0.0-semantically-released",
   "description": "React toolkit for writing and testing react components",
-  "main": "dist/index.js",
+  "main": "index.js",
   "release": {
     "branches": ["main"]
   },
