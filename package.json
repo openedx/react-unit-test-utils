@@ -7,7 +7,7 @@
     "access": "public"
   },
   "release": {
-    "branches": ["main"]
+    "branches": ["main", "next"]
   },
   "scripts": {
     "build": "make build",
