@@ -2,10 +2,13 @@
   "name": "@edx/react-unit-test-utils",
   "version": "1.0.0-semantically-released",
   "description": "React toolkit for writing and testing react components",
-  "main": "index.js",
+  "main": "dist/index.js",
   "release": {
     "branches": ["main"]
   },
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "build": "make build",
     "lint": "fedx-scripts eslint --ext .jsx,.js src/",
