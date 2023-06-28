@@ -94,10 +94,16 @@ out.handleClick(); // out.handleClick = () => { setField2(null); }
 expect(state.setField.field2).toHaveBeenCalledWith(null);
 ```
 ### `getEffect` - React useEffect hook testing utility method.
-Simple utility for grabbing a useEffect call based on a list of prerequisite values.
+Simple utility for grabbing useEffect calls based on a list of prerequisite values.
 #### Usage
 ```js
-import { getEffect } from '@edx/react-unit-test-utils';
+import React from 'react';
+import { getEffects } from '@edx/react-unit-test-utils';
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useEffect: jest.fn(),
+}));
 
 const useMyHook = ({ val0, val1, method1 }) => {
   useEffect(() => {
@@ -116,13 +122,13 @@ describe('useMyHook', () => {
     beforeEach(() => { jest.clearAllMocks(); });
     it('calls method1 with val0 on initial load', () => {
       useMyHook({ val0, val1, method1 });
-      const cb = getEffect([]);
+      const cb = getEffect([], React)[0];
       cb();
       expect(method1).toHaveBeenCalledWith(val0);
     });
     it('calls method1 with val1 when either changes', () => {
       useMyHook({ val0, val1, method1 });
-      const cb = getEffect([val1, method1]);
+      const cb = getEffect([val1, method1], React)[0];
       cb();
       expect(method1).toHaveBeenCalledWith(val1);
     });
