@@ -85,6 +85,8 @@ export class MockUseKeyedState {
     this.mockVal = this.mockVal.bind(this);
     this.setup = this.setup.bind(this);
     this.mockHook = this.mockHook.bind(this);
+    this.mockVals = this.mockVals.bind(this);
+    this.resetVals = this.resetVals.bind(this);
     this.setup();
   }
 
@@ -125,6 +127,27 @@ export class MockUseKeyedState {
       }
       return this.mockHook(key);
     });
+  }
+
+  /**
+   * Mock the state getters associated with set of single keys to return specific values one time.
+   *
+   * @param {object} mapping - { <stateKey>: <val to return> }
+   */
+  mockVals(mapping) {
+    this.hookSpy.mockImplementation((key) => {
+      if (mapping[key]) {
+        return [mapping[key], this.setState[key]];
+      }
+      return this.mockHook(key);
+    });
+  }
+
+  /**
+   * Reset hook value mappings after multi-value override
+   */
+  resetVals() {
+    this.hookSpy.mockImplementation(this.mockHook);
   }
 
   /**
