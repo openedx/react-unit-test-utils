@@ -1,18 +1,19 @@
 import { isEqual } from 'lodash';
 
 class ElementExplorer {
-  constructor(element, toSnapshot) {
+  constructor(element, toSnapshot, parent = null) {
     this.el = element;
     this.toSnapshot = toSnapshot;
     this.props = {};
     this.type = null;
     this.children = [];
+    this.parent = parent;
     if (element.type) {
       this.props = element.props;
       this.type = element.type;
     }
     if (element.children) {
-      this.children = element.children.map(child => new ElementExplorer(child, toSnapshot));
+      this.children = element.children.map(child => new ElementExplorer(child, toSnapshot, this));
     }
   }
 

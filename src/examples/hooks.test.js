@@ -1,6 +1,6 @@
 import React from 'react';
 import * as axios from 'axios';
-import { getEffect, mockUseKeyedState } from 'testUtils';
+import { getEffects, mockUseKeyedState } from 'testUtils';
 
 import * as hooks from './hooks';
 
@@ -53,9 +53,9 @@ describe('ExampleComponent hooks', () => {
       });
       it('sets loaded to true on initialization', () => {
         /**
-         * Use getEffect to load callback passed to useEffect based on prerequisite array
+         * Use getEffects to load callback passed to useEffect based on prerequisite array
          */
-        const cb = getEffect([state.setState.loaded]);
+        const cb = getEffects([state.setState.loaded], React)[0];
         cb();
         /**
          * use expectSetStateCalledWith to validate setState calls.
@@ -64,13 +64,13 @@ describe('ExampleComponent hooks', () => {
       });
       it('increments numEvents on importClicked or fileChanged', () => {
         /**
-         * Use getEffect to load callback passed to useEffect based on prerequisite array
+         * Use getEffects to load callback passed to useEffect based on prerequisite array
          */
-        const cb = getEffect([
+        const cb = getEffects([
           state.setState.numEvents,
           state.values.importedClicked,
           state.values.fileInputChanged,
-        ]);
+        ], React)[0];
         cb();
         /**
          * For complex setState calls (called with a method), access setState call
