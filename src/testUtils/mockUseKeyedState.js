@@ -104,6 +104,7 @@ export class MockUseKeyedState {
 
   mockHook(key, val) {
     this.initValues[key] = val;
+    this.values[key] = val;
     return [this.values[key], this.setState[key]];
   }
 
