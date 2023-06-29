@@ -12,7 +12,6 @@ jest.mock('./ImportedComponent', () => 'ImportedComponent');
 jest.mock('./hooks', () => ({ __esModule: true, default: jest.fn() }));
 
 let el;
-let inst;
 let hookProps;
 describe('ExampleComponent component', () => {
   beforeAll(() => {
@@ -36,23 +35,20 @@ describe('ExampleComponent component', () => {
       expect(el.snapshot).toMatchSnapshot();
     });
     describe('output', () => {
-      beforeEach(() => {
-        inst = el.instance;
-      });
       test('Form', () => {
-        const control = inst.findByType(Form)[0];
+        const control = el.instance.findByType(Form)[0];
         expect(control.props.action).toEqual(hookProps.formAction);
       });
       test('FileControl', () => {
-        const control = inst.findByTestId(testIds.fileControl)[0];
+        const control = el.instance.findByTestId(testIds.fileControl)[0];
         expect(control.props.onChange).toEqual(hookProps.handleFileInputChange);
       });
       test('imported component', () => {
-        const control = inst.findByType(ImportedComponent)[0];
+        const control = el.instance.findByType(ImportedComponent)[0];
         expect(control.props.onClick).toEqual(hookProps.handleClickImportedComponent);
       });
       test('random', () => {
-        const control = inst.findByType('div')[0];
+        const control = el.instance.findByType('div')[0];
         expect(control.matches(shallow(
           <div>
             <h1>{formatMessage(messages.heading)}</h1>
