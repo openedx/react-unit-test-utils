@@ -11,7 +11,7 @@ import {
 } from 'react-is';
 import ElementExplorer from './ElementExplorer';
 
-const getNodeName = node => node.displayName || node.name || '';
+const getNodeName = node => node?.displayName || node?.name || '';
 
 class ReactShallowRenderer {
   shallowRenderer = null;
