@@ -63,7 +63,7 @@ class ReactShallowRenderer {
 
   isEmptyRender() {
     const data = this.getRenderOutput();
-    return data === null;
+    return data === null || data === false;
   }
 
   get snapshot() {
