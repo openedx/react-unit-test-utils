@@ -1,6 +1,6 @@
 export {
   formatMessage,
-  getEffect,
+  getEffects,
   mockComponents,
   mockUseKeyedState,
   shallow,
