@@ -45,7 +45,7 @@ Component library mocking utility intended for imported libraries of many comple
 
 #### Usage
 ```js
-jest.mock('@edx/paragon', () => jest.requireActual('@edx/react-unit-test-utils').mockComponents({
+jest.mock('@openedx/paragon', () => jest.requireActual('@edx/react-unit-test-utils').mockComponents({
   Button: 'Button',
   Icon: 'Icon',
   Form: {

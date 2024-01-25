@@ -5,7 +5,7 @@ import useExampleComponentData from './hooks';
 import ExampleComponent from './ExampleComponent';
 
 jest.unmock('react');
-jest.unmock('@edx/paragon');
+jest.unmock('@openedx/paragon');
 jest.mock('./ImportedComponent', () => 'imported-component');
 jest.mock('./hooks', () => ({ __esModule: true, default: jest.fn() }));
 

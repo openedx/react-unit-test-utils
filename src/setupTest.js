@@ -8,7 +8,7 @@ jest.mock('@edx/frontend-platform/i18n', () => {
   };
 });
 
-jest.mock('@edx/paragon', () => jest.requireActual('testUtils').mockComponents({
+jest.mock('@openedx/paragon', () => jest.requireActual('testUtils').mockComponents({
   Form: {
     Control: 'Form.Control',
     Group: 'Form.Group',
