@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatMessage, shallow } from 'testUtils';
-import { Form } from '@edx/paragon';
+import { Form } from '@openedx/paragon';
 import { useIntl } from '@edx/frontend-platform/i18n';
 
 import ImportedComponent from './ImportedComponent';
