@@ -19,7 +19,7 @@ exports[`ExampleComponent component render snapshot 1`] = `
   <ImportedComponent
     className="imported-component"
     label={
-      Object {
+      {
         "defaultMessage": "I am imported",
         "description": "File Control Label",
         "id": "examples.importedComponentLabel",
