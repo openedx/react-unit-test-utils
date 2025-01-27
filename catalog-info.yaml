@@ -8,3 +8,4 @@ metadata:
   description: "A Python library to support React unit tests."
 spec:
   type: 'library'
+  owner: group:openedx-unmaintained
