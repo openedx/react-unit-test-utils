@@ -4,7 +4,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: 'React-unit-tests-utils'
+  name: 'react-unit-test-utils'
   description: "A Python library to support React unit tests."
 spec:
   type: 'library'
