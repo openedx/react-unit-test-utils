@@ -5,7 +5,11 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: 'react-unit-test-utils'
-  description: "A Python library to support React unit tests."
+  description: "Provides a shared set of unit testing utils for react/MFE environments"
+  links: []
+  annotations:
+    openedx.org/arch-interest-groups: ""
 spec:
+  owner: "group:committers-frontend"
   type: 'library'
-  owner: group:openedx-unmaintained
+  lifecycle: 'production'
